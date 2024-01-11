@@ -7,7 +7,7 @@ import data from './data.js';
 import bg from './img/bg.jpeg';
 import {Routes, Route, Link} from 'react-router-dom';
 import Main from './Main.js';
-import Main from './Detail.js';
+import Detail from './Detail.js';
 function App() {
   return (
     <div className="App">
