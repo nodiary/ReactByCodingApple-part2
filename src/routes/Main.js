@@ -1,5 +1,5 @@
-function Main(){
-    let [shoes, setShoes] = useState(data);
+function Main(props){
+    let shoes=props.shoes;
     return(
       <>
         <div className="main-bg"></div>
@@ -40,9 +40,10 @@ function Main(){
     )
   }
   function Card (props){
-    const id = props.item.id;
-    const title = props.item.title;
-    const price = props.item.price;
+    const item = props.item;
+    const id = item.id;
+    const title = item.title;
+    const price = item.price;
     return(
       <div className="col-md-4">
         <img src={`https://codingapple1.github.io/shop/shoes${id+1}.jpg`} width="80%"/>
