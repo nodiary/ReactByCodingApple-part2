@@ -1,5 +1,8 @@
+import { useParams } from "react-router-dom";
+
 function Detail(props) {
-    const item = props.shoe;
+    const {id} = useParams();
+    const item = props.shoes.find((item) => item.id == id);
     return(
         <div className="container">
             <div className="row">

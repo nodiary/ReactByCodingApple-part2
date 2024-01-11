@@ -38,7 +38,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Main shoes={shoes}></Main>}/>
-        <Route path="/detail" element={<Detail shoe={shoes[0]}></Detail>}/>
+        {/* URL파라미터 */}
+        <Route path="/detail/:id" element={<Detail shoes={shoes}></Detail>}/>
         <Route path="/cart" element={<div>cart</div>}/>
         <Route path="*" element={<div>없는페이지404</div>}/>
         {/* nested routes 예시 */}
