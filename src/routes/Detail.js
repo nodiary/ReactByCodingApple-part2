@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Nav from 'react-bootstrap/Nav';
 import styled from 'styled-components';
 
 // styled-components 라이브러리 사용.
@@ -28,6 +29,7 @@ function Detail(props) {
     let [count, setCount] = useState(0);
     let [boxSwitch, setBoxSwitch] = useState(true);
     let [inputValue, setInputValue] = useState('');
+    let [tabState, setTabState] = useState(0);
     // useEffect - mount, update시 코드 실행
     // mount 될 때만 작동시키려면 [] 추가
     // state가 업데이트 될 때만 작동하려면 []안에 state 추가
@@ -74,8 +76,6 @@ function Detail(props) {
                 <EventBox></EventBox> : null
             }
             
-            {count}
-            <button onClick={()=>{ setCount(count+1) }}>버튼</button>
             <div className="row">
                 <div className="col-md-6">
                     <img src={"https://codingapple1.github.io/shop/shoes"+(item.id+1)+".jpg"} width="100%" />
@@ -92,6 +92,20 @@ function Detail(props) {
                     <button className="btn btn-danger">주문하기</button> 
                 </div>
             </div>
+            
+            <Nav variant="tabs" defaultActiveKey="link0">
+                <Nav.Item>
+                    <Nav.Link onClick={()=>{setTabState(0)}} eventKey="link0">버튼0</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link onClick={()=>{setTabState(1)}} eventKey="link1">버튼1</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link onClick={()=>{setTabState(2)}} eventKey="link2">버튼2</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            <TabContent tabState={tabState}/>
+
         </div> 
     )
 }
@@ -102,4 +116,16 @@ function EventBox(){
         </div>
     )
 }
+function TabContent({tabState}){
+    if (tabState == 0){
+        return <div>내용0</div>
+    }
+    if (tabState == 1){
+        return <div>내용1</div>
+    }
+    if (tabState == 2){
+        return <div>내용2</div>
+    }
+}
+
 export default Detail;
