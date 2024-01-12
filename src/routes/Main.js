@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import axios from 'axios'
 
 function Main(props){
@@ -68,9 +69,11 @@ function Main(props){
     const price = item.price;
     return(
       <div className="col-md-4">
-        <img src={`https://codingapple1.github.io/shop/shoes${id+1}.jpg`} width="80%"/>
-        <h4>{title}</h4>
-        <p>{price}</p>
+        <Link to={`/detail/${id}`}>
+          <img src={`https://codingapple1.github.io/shop/shoes${id+1}.jpg`} width="80%"/>
+          <h4>{title}</h4>
+          <p>{price}</p>
+        </Link>
       </div>
     )
   }
