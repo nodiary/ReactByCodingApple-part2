@@ -2,7 +2,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom';
 import axios from 'axios'
 
@@ -11,8 +11,12 @@ import bg from './img/bg.jpeg';
 import Main from './routes/Main.js';
 import Detail from './routes/Detail.js';
 
+// context API
+let Context1 = createContext() // state 보관함
+
 function App() {
   let [shoes, setShoes] = useState(data);
+  let [stockCount, setStockCount] = useState([10, 11, 12]);
   let navigate = useNavigate();
   return (
     <div className="App">
@@ -42,7 +46,11 @@ function App() {
       <Routes>
         <Route path="/" element={<Main shoes={shoes} setShoes={setShoes}></Main>}/>
         {/* URL파라미터 */}
-        <Route path="/detail/:id" element={<Detail shoes={shoes}></Detail>}/>
+        <Route path="/detail/:id" element={
+          <Context1.Provider value={{stockCount, shoes}}>
+            <Detail shoes={shoes}/>
+          </Context1.Provider>
+          }/>
         <Route path="/cart" element={<div>cart</div>}/>
         <Route path="*" element={<div>없는페이지404</div>}/>
         {/* nested routes 예시 */}

@@ -1,7 +1,9 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Nav from 'react-bootstrap/Nav';
 import styled from 'styled-components';
+
+
 
 // styled-components 라이브러리 사용.
 // 스타일이 다른 js파일로 오염되지 않는다.
@@ -25,7 +27,7 @@ import styled from 'styled-components';
 // `
 
 function Detail(props) {
-
+    
     let [count, setCount] = useState(0);
     let [boxSwitch, setBoxSwitch] = useState(true);
     let [inputValue, setInputValue] = useState('');
@@ -128,7 +130,7 @@ function EventBox(){
     )
 }
 function TabContent({tabState}){
-    
+
     let [fade, setFade] = useState('')
 
     useEffect(()=>{
@@ -139,7 +141,7 @@ function TabContent({tabState}){
     },[tabState])
 
     return (<div className={`start ${fade}`}>
-        { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tabState] }
+        { [<div></div>, <div>내용1</div>, <div>내용2</div>][tabState] }
     </div>)
 
 }

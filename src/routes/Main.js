@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
 import axios from 'axios'
-
+// contextAPI
+import {Context1} from './../App.js'
 function Main(props){
     let shoes=props.shoes;
+    // contextAPI
+    let {stockCount} = useContext(Context1)
     return(
       <>
         <div className="main-bg"></div>
