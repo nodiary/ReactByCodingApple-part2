@@ -3,11 +3,14 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import { useState } from 'react';
+import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom';
+import axios from 'axios'
+
 import data from './data.js';
 import bg from './img/bg.jpeg';
-import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom';
 import Main from './routes/Main.js';
 import Detail from './routes/Detail.js';
+
 function App() {
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
@@ -37,7 +40,7 @@ function App() {
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<Main shoes={shoes}></Main>}/>
+        <Route path="/" element={<Main shoes={shoes} setShoes={setShoes}></Main>}/>
         {/* URL파라미터 */}
         <Route path="/detail/:id" element={<Detail shoes={shoes}></Detail>}/>
         <Route path="/cart" element={<div>cart</div>}/>
