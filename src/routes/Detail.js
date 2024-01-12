@@ -69,7 +69,17 @@ function Detail(props) {
     const {id} = useParams();
     const item = props.shoes.find((item) => item.id == id);
 
+    let [fade, setFade] = useState('')
+
+    useEffect(()=>{
+        setTimeout(()=>{ setFade('end') },100)
+        return ()=>{
+            setFade('')
+        }
+    },[])
+
     return(
+        <div className={`start ${fade}`}>
         <div className="container">
             {
                 boxSwitch == true ? 
@@ -107,6 +117,7 @@ function Detail(props) {
             <TabContent tabState={tabState}/>
 
         </div> 
+        </div>
     )
 }
 function EventBox(){
@@ -117,15 +128,20 @@ function EventBox(){
     )
 }
 function TabContent({tabState}){
-    if (tabState == 0){
-        return <div>내용0</div>
-    }
-    if (tabState == 1){
-        return <div>내용1</div>
-    }
-    if (tabState == 2){
-        return <div>내용2</div>
-    }
+    
+    let [fade, setFade] = useState('')
+
+    useEffect(()=>{
+        setTimeout(()=>{ setFade('end') },100)
+        return ()=>{
+            setFade('')
+        }
+    },[tabState])
+
+    return (<div className={`start ${fade}`}>
+        { [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tabState] }
+    </div>)
+
 }
 
 export default Detail;
