@@ -3,7 +3,8 @@ import { useContext, useEffect, useState } from "react";
 import Nav from 'react-bootstrap/Nav';
 import styled from 'styled-components';
 import {Context1} from './../App.js'
-
+import  { addCart }  from "../store.js";
+import { useDispatch } from "react-redux";
 
 // styled-components 라이브러리 사용.
 // 스타일이 다른 js파일로 오염되지 않는다.
@@ -32,6 +33,9 @@ function Detail(props) {
     let [boxSwitch, setBoxSwitch] = useState(true);
     let [inputValue, setInputValue] = useState('');
     let [tabState, setTabState] = useState(0);
+
+    let dispatch = useDispatch()
+
     // useEffect - mount, update시 코드 실행
     // mount 될 때만 작동시키려면 [] 추가
     // state가 업데이트 될 때만 작동하려면 []안에 state 추가
@@ -103,7 +107,10 @@ function Detail(props) {
                     <h4 className="pt-5">{item.title}</h4>
                     <p>{item.content}</p>
                     <p>{item.price}원</p>
-                    <button className="btn btn-danger">주문하기</button> 
+                    <button onClick={()=>{
+                        dispatch(addCart(item))
+                        
+                    }}className="btn btn-danger">주문하기</button> 
                 </div>
             </div>
             

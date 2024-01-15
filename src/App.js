@@ -22,7 +22,10 @@ function App() {
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="/">SHOEKER</Navbar.Brand>
+          {/* v1 */}
+          {/* <Navbar.Brand href="/">SHOEKER</Navbar.Brand> */}
+          {/* v2 */}
+          <Navbar.Brand onClick={()=>{ navigate('/') }}>SHOEKER</Navbar.Brand>
           {/* <Link className="navbar-brand" to="/"></Link> */}
           <Nav className="me-auto">
             {/* v1

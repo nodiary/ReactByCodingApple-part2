@@ -1,16 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
+import user from './store/userSlice.js'
 
-let user = createSlice({
-  name : 'user',
-  initialState : 'kim',
-  reducers : {
-    changeName(state){
-      return 'john' + state;
-    }
-  }
-})
-
-export let { changeName } = user.actions
 
 let stock = createSlice({
   name : 'stock',
@@ -25,6 +15,33 @@ let userCartList = createSlice({
       {id : 2, name : 'Grey Yordan', count : 1}
     ] ,
   reducers : {
+    addCart(state, action){
+      console.log('addCart!!!')
+      let newItemObj = 
+          { 
+            id : action.payload.id,
+            name : action.payload.title,
+            count : 1
+          }
+      
+      let tid = state.find(item => item.id === action.payload.id)
+      if (tid){
+        console.log('이미있음')
+        return state.map(item =>
+          item.id === action.payload.id ? { ...item, count: item.count + 1 } : item
+        );
+      }else {
+        console.log('새로넣기')
+        console.log(state)
+        return [...state, newItemObj]
+      }
+      
+    },
+    deleteCartItem(state, action){
+      const targetId = action.payload
+      // const targetIndex = state.findIndex((item) => item.id === targetId)
+      return state.filter(item => item.id !== targetId)
+    },
     addCount(state, action){
       const { payload: id } = action;
       return state.map(item =>
@@ -41,7 +58,7 @@ let userCartList = createSlice({
   }
 })
 
-export let { addCount, subsCount } = userCartList.actions
+export let { addCount, subsCount, addCart, deleteCartItem } = userCartList.actions
 
 export default configureStore({
   reducer: { 
