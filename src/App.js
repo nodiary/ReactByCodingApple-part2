@@ -10,9 +10,9 @@ import data from './data.js';
 import bg from './img/bg.jpeg';
 import Main from './routes/Main.js';
 import Detail from './routes/Detail.js';
-
+import Cart from './routes/Cart.js';
 // context API
-let Context1 = createContext() // state 보관함
+export let Context1 = createContext() // state 보관함
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -37,21 +37,25 @@ function App() {
             {/* v3-n */}
             <Nav.Link onClick={()=>{ navigate('/') }}>Home</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
-            <Nav.Link onClick={()=>{ navigate('/event') }}>Event</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/cart') }}>Cart</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/admin') }}>Admin</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
       <Routes>
-        <Route path="/" element={<Main shoes={shoes} setShoes={setShoes}></Main>}/>
+        <Route path="/" element={
+          <Context1.Provider value={{shoes, stockCount}}>
+            <Main shoes={shoes} setShoes={setShoes}/>
+          </Context1.Provider>
+        }/>
         {/* URL파라미터 */}
         <Route path="/detail/:id" element={
           <Context1.Provider value={{stockCount, shoes}}>
             <Detail shoes={shoes}/>
           </Context1.Provider>
           }/>
-        <Route path="/cart" element={<div>cart</div>}/>
+        <Route path="/cart" element={<Cart/>}/>
         <Route path="*" element={<div>없는페이지404</div>}/>
         {/* nested routes 예시 */}
         <Route path="/admin" element={<Admin/>}>

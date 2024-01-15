@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import Nav from 'react-bootstrap/Nav';
 import styled from 'styled-components';
-
+import {Context1} from './../App.js'
 
 
 // styled-components 라이브러리 사용.
@@ -27,7 +27,7 @@ import styled from 'styled-components';
 // `
 
 function Detail(props) {
-    
+    let {stockCount} = useContext(Context1)
     let [count, setCount] = useState(0);
     let [boxSwitch, setBoxSwitch] = useState(true);
     let [inputValue, setInputValue] = useState('');
@@ -81,6 +81,7 @@ function Detail(props) {
     },[])
 
     return(
+        
         <div className={`start ${fade}`}>
         <div className="container">
             {
@@ -89,6 +90,7 @@ function Detail(props) {
             }
             
             <div className="row">
+            {stockCount}
                 <div className="col-md-6">
                     <img src={"https://codingapple1.github.io/shop/shoes"+(item.id+1)+".jpg"} width="100%" />
                 </div>
