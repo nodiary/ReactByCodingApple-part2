@@ -12,6 +12,7 @@ import Main from './routes/Main.js';
 import Detail from './routes/Detail.js';
 import Cart from './routes/Cart.js';
 import Watched from './routes/Watched.js';
+import { useQuery } from 'react-query';
 // context API
 export let Context1 = createContext() // state 보관함
 
@@ -27,9 +28,24 @@ function App() {
   let [shoes, setShoes] = useState(data);
   let [stockCount, setStockCount] = useState([10, 11, 12]);
   let navigate = useNavigate();
+
+  
+
+  // react-query 사용
+  // 장점 1. 성공/실패/로딩 쉽게 파악 가능
+  let result = useQuery('작명', ()=>{
+    return axios.get('https://codingapple1.github.io/userdata.json').then((result)=>{
+      return result.data
+    })
+  })
+
+  // result.data
+  // result.isLoading
+  // result.error
+
   return (
     <div className="App">
-      <Navbar bg="dark" data-bs-theme="dark">
+      <Navbar bg="light" data-bs-theme="light">
         <Container>
           {/* v1 */}
           {/* <Navbar.Brand href="/">SHOEKER</Navbar.Brand> */}
@@ -48,10 +64,11 @@ function App() {
 
             {/* v3-n */}
             <Nav.Link onClick={()=>{ navigate('/') }}>Home</Nav.Link>
-            <Nav.Link onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/cart') }}>Cart</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/watched') }}>최근 본 상품</Nav.Link>
-            <Nav.Link onClick={()=>{ navigate('/admin') }}>Admin</Nav.Link>
+          </Nav>
+          <Nav className="ms-auto">
+            { result.isLoading ? '로딩중' : result.data.name }
           </Nav>
         </Container>
       </Navbar>
