@@ -34,6 +34,11 @@ function Detail(props) {
     let [inputValue, setInputValue] = useState('');
     let [tabState, setTabState] = useState(0);
 
+    const {id} = useParams();
+    const item = props.shoes.find((item) => item.id == id);
+    let [fade, setFade] = useState('')
+
+
     let dispatch = useDispatch()
 
     // useEffect - mount, update시 코드 실행
@@ -71,11 +76,16 @@ function Detail(props) {
             setInputValue('')
         }
     },[inputValue])
-    
-    const {id} = useParams();
-    const item = props.shoes.find((item) => item.id == id);
 
-    let [fade, setFade] = useState('')
+    /* localStorage에 최근 본 상품 저장 */
+    useEffect(()=>{
+        let watchedList = JSON.parse(localStorage.getItem('watchedList'))
+        let isExist = watchedList.find(e => e.id === item.id)
+        if (isExist) return
+        watchedList.push(item)
+        localStorage.setItem('watchedList',JSON.stringify(watchedList))
+    },[])
+  
 
     useEffect(()=>{
         setTimeout(()=>{ setFade('end') },100)

@@ -2,7 +2,7 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import {Routes, Route, Link, useNavigate, Outlet} from 'react-router-dom';
 import axios from 'axios'
 
@@ -11,10 +11,19 @@ import bg from './img/bg.jpeg';
 import Main from './routes/Main.js';
 import Detail from './routes/Detail.js';
 import Cart from './routes/Cart.js';
+import Watched from './routes/Watched.js';
 // context API
 export let Context1 = createContext() // state 보관함
 
 function App() {
+
+  useEffect(()=>{
+    const isExist = localStorage.hasOwnProperty('watchedList')
+    if(isExist) return;
+    localStorage.setItem('watchedList',JSON.stringify([]))
+  },[])
+
+
   let [shoes, setShoes] = useState(data);
   let [stockCount, setStockCount] = useState([10, 11, 12]);
   let navigate = useNavigate();
@@ -41,6 +50,7 @@ function App() {
             <Nav.Link onClick={()=>{ navigate('/') }}>Home</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/cart') }}>Cart</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/watched') }}>최근 본 상품</Nav.Link>
             <Nav.Link onClick={()=>{ navigate('/admin') }}>Admin</Nav.Link>
           </Nav>
         </Container>
@@ -59,6 +69,7 @@ function App() {
           </Context1.Provider>
           }/>
         <Route path="/cart" element={<Cart/>}/>
+        <Route path="/watched" element={<Watched/>}/>
         <Route path="*" element={<div>없는페이지404</div>}/>
         {/* nested routes 예시 */}
         <Route path="/admin" element={<Admin/>}>
